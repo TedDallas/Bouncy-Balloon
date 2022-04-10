@@ -19,7 +19,7 @@ Now go learn C you script kiddies!
 
 INSTRUCTIONS: 
 -------------------------------------------------------------------------------
-  > Hit Space Bar to bounce up.
-  > Avoid enemy baloons.
-  > Fly Bouncy Balloon through the gaps to score points. 
-  > Press escape to end the game or simply close the window.
+- Hit Space Bar to bounce up.
+- Avoid enemy baloons.
+- Fly Bouncy Balloon through the gaps to score points. 
+- Press escape to end the game or simply close the window.
