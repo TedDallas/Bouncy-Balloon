@@ -1,7 +1,7 @@
 import pygame, os, time, random, math
 from pygame.locals import *
 
-os.environ['SDL_VIDEO_CENTERED'] = '1' #make sure the game window centered. CITATION: https://stackoverflow.com/questions/38703791/how-do-i-place-the-pygame-screen-in-the-middle
+os.environ['SDL_VIDEO_CENTERED'] = '1' #make sure the game window centered.
 pygame.init() # initialize pygame game engine 
 frame_counter = 0 # frame counter
 screen_height = 360 # screen height for game screen window 
