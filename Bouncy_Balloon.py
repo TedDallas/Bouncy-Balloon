@@ -8,12 +8,12 @@ screen_width = 600 #Max point for x-axis (min is always 0)
 GameScreen = pygame.display.set_mode(size=(screen_width, screen_height)) # create the Game Screen to draw on
 jump_energy = -12 #player maximum jump power (always a negative number because y-axis up direction is negative)
 player_radius = 16 #radius used when drawing player balloon 
-player_x_spawn = 150
-player_y_spawn = 180
+player_x_spawn = 150 #player x-position spawn point
+player_y_spawn = 180 #player y-position spawn point
 player_x_pos = player_x_spawn #current x-position of the player
 player_y_pos = player_y_spawn #current y-position of the player
 player_jump_speed = jump_energy #current player jump speed
-player_alive = True 
+player_alive = True #set to False when player dies
 player_restart_depth = 1500 #game restarts when player falls to this depth (player_y_pos)
 balloon_column_count = 60 #total number of random balloons per column
 ballon_speed = -4 #fixed speed of balloons moving accross the screen to the left
