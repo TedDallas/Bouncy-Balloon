@@ -98,7 +98,7 @@ while playing: # main game loop
                 last_balloon_x = balloon["position"][0]
     
     #update player score as they progress, player must be alive and score is incremented every second once game has started running long enough 
-    if player_alive and frame_counter % frame_rate == 0 and frame_counter > frame_rate * 2:
+    if (frame_counter + (player_radius * 2) ) % frame_rate == 0 and player_alive and frame_counter > frame_rate * 3: 
         score += 1
     
     #reset game if player died and the player has fallen past the player_restart_depth (which gives us a slight delay)
