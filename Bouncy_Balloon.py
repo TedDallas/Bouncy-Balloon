@@ -1,5 +1,6 @@
 import pygame, time, random, math
 
+#os.environ['SDL_VIDEO_CENTERED'] = '1' #center the window
 pygame.init() #initialize the game engine
 frame_counter = 0 #frame counter used for timing things
 GameScreen = pygame.display.set_mode(size=(0, 0), flags=pygame.HWSURFACE|pygame.FULLSCREEN, vsync=1) # create the Game Screen to draw on
@@ -38,9 +39,8 @@ while playing: # main game loop
         if event.type == pygame.KEYDOWN: # if the user pressed a key
             if event.key == pygame.K_ESCAPE: # if the user pressed the escape key
                 playing = False #set the playing variable to False so that the game loop ends and the program ends
-            if event.key == pygame.K_SPACE: #if the user pressed the space bar
-                if player_alive: #if the player is still alive
-                    player_jump_speed += jump_energy #make the player bounce higher by adding to the players jump speed
+            elif player_alive: #if the player is still alive
+                player_jump_speed += jump_energy #make the player bounce higher by adding to the players jump speed
         if event.type == pygame.QUIT: # if user closed the window to end the game instead of pressing the escape key
             playing = False #set the playing variable to False so that the game-loop ends and the program ends
 
@@ -67,13 +67,9 @@ while playing: # main game loop
     #populate balloons pool
     if len(balloons) == 0: #add balloons
         for i in range(balloon_column_count * 5): #(limited by the balloon_column_count time 6
-            balloon_radius = random.randrange(int(0.0333333 * screen_width),int(0.05 * screen_width)) #pick a random size for the balloon
-            balloon_color = (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255))
-            balloon_x_position = screen_width+100
-            balloon_y_position = -10
-            balloons.append({"radius"   : balloon_radius, 
-                             "position" : (balloon_x_position,balloon_y_position), 
-                             "color"    : balloon_color,
+            balloons.append({"radius"   : random.randrange(int(0.0333333 * screen_width),int(0.05 * screen_width)), 
+                             "position" : (screen_width+100,-10), 
+                             "color"    : (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255)),
                              "alive"    : False})
 
     #spawn evil balloons column
@@ -82,23 +78,20 @@ while playing: # main game loop
         counter = 0
         for balloon in balloons: #create and add all balloons in the baloon column (limited by the balloon_column_count) 
             if not balloon["alive"]:
-                balloon_radius = random.randrange(int(0.0333333 * screen_width),int(0.05 * screen_width)) #pick a random size for the balloon
-                balloon_color = (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255))
                 balloon_x_position = screen_width+(1.0/6.0*screen_width)+random.randrange(-int(0.016666666 * screen_width),int(0.016666666 * screen_width))
                 if random.randrange(0,2) == 1: #if random number is 1 then ballon must be above the hole
                     balloon_y_position = random.randrange(0,hole_y_pos)
                 else: #else the random number is not 1, so place the balloon below the hole
                     balloon_y_position = random.randrange(hole_y_pos+hole_height,screen_height)
-                balloon["radius"] = balloon_radius
+                balloon["radius"] = random.randrange(int(0.0333333 * screen_width),int(0.05 * screen_width)) #pick a random size for the balloon
                 balloon["position"] = (balloon_x_position,balloon_y_position)
-                balloon["color"] = balloon_color
+                balloon["color"] = (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255))
                 balloon["alive"] = True
                 counter += 1
                 if counter >= balloon_column_count:
                     break
 
     #move the evil balloons and kill player if player touches any balloon
-    last_balloon_x = 0
     for balloon in balloons:
         #move the ballon if not off the screen
         if balloon["alive"]:
@@ -110,8 +103,6 @@ while playing: # main game loop
                 #kill player if player touches balloon
                 if distance < player_radius + balloon["radius"]:
                     player_alive = False
-                else:
-                    last_balloon_x = balloon["position"][0]
             else:
                 balloon["alive"] = False
     
@@ -137,10 +128,12 @@ while playing: # main game loop
                 high_score = score 
                 score = "NEW HIGH SCORE !!!"
 
-    #show the score and high score on the screen
+    #show high score on the screen
     high_score_text = score_font.render(str(high_score), True, (128,128,255)) #create high score text object with high score value set
     text_width, text_height = score_font.size(str(high_score)) #get the score text size so we can center it
     GameScreen.blit(high_score_text, (screen_width/2-text_width/2, 10)) #draw score text
+
+    #show score on the screen
     score_text = score_font.render(str(score), True, (255,255,128)) #create score text object with score value set
     text_width, text_height = score_font.size(str(score)) #get the high score text size so we can center it
     GameScreen.blit(score_text, (screen_width/2-text_width/2, 10 + text_height)) #draw score text
