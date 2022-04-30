@@ -20,7 +20,6 @@ balloons = [] #balloons list container
 hole_height = int(2.0/5.0*screen_height)  #height of the hole in the balloons column that the player must fly through
 frame_rate = 60 #frame rate in frames per second
 gravity = int(1.0 / frame_rate * screen_height / 6.0)
-BALLOON_DEAD_YPOS = -100
 pygame.font.init() #initialize font object
 score_font = pygame.font.Font(None, int(1.0/12.0 * screen_width)) #create font score object for displaying the player score
 score = 0 #score is the number of balloon columns the player has gone through
