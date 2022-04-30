@@ -11,7 +11,7 @@ ABOUT:
 -------------------------------------------------------------------------------
 Bouncy Balloon is a small game I made with my youngest daughter. It has no external dependencies outside of needing PyGame to run and Python 3.7 or higher.
 
-The entire program is less than 140 lines of code. It is not the smallest game ever in terms of source code, but it is pretty small (by design).
+The entire program is less than 200 lines of code. It is not the smallest game ever in terms of source code, but it is pretty small (by design).
 
 Besides being a fun little game, the point is to help younger programers understand some of the basic components of game design in a readable form.
 
