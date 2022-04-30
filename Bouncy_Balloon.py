@@ -2,9 +2,11 @@ import pygame, time, random, math
 
 pygame.init() #initialize the game engine
 frame_counter = 0 #frame counter used for timing things
-GameScreen = pygame.display.set_mode(size=(0, 0), flags=pygame.HWSURFACE|pygame.FULLSCREEN, vsync=1) # create the Game Screen to draw on
-screen_height = GameScreen.get_height()  #Max point for y-axis (min is always 0)
-screen_width = GameScreen.get_width() #Max point for x-axis (min is always 0)
+#GameScreen = pygame.display.set_mode(size=(0, 0), flags=pygame.HWSURFACE|pygame.FULLSCREEN, vsync=1) # This works on Windows but not on Rasperian
+DisplayInfo = pygame.display.Info()
+GameScreen = pygame.display.set_mode(size=(DisplayInfo.current_w, DisplayInfo.current_h), flags=pygame.NOFRAME) # create the Game Screen to draw on
+screen_height = 1080#GameScreen.get_height()  #Max point for y-axis (min is always 0)
+screen_width = 1920#GameScreen.get_width() #Max point for x-axis (min is always 0)
 jump_energy = -int(1.0/30.0 * screen_height)#player maximum jump power (always a negative number because y-axis up direction is negative)
 player_radius = int(2.0/75.0 * screen_width) #radius used when drawing player balloon 
 player_x_spawn = screen_width / 4
@@ -77,7 +79,7 @@ while playing: # main game loop
         for i in range(balloon_column_count * 5): #(limited by the balloon_column_count time 6
             balloons.append(Enemy(Radius = random.randrange(int(1.0/30.0 * screen_width),int(1.0/20.0 * screen_width)), 
                                   Position = (screen_width+100,-10), 
-                                  Color = (random.randrange(128,255),random.randrange(128,255),random.randrange(128,255)),
+                                  Color = (random.randrange(192,255),random.randrange(192,255),random.randrange(192,255)),
                                   Alive = False))
 
     #spawn evil balloons column
