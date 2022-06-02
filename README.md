@@ -9,7 +9,12 @@ You need to be on Python 3.7 or higher as I am using time.time_ns() which was in
 
 ABOUT: 
 -------------------------------------------------------------------------------
-Bouncy Balloon is a small game I made with my youngest daughter. It has no external dependencies outside of needing PyGame to run and Python 3.7 or higher.
+Bouncy Balloon is a small game I made with my youngest daughter. It has no external dependencies outside of needing Python 3.7 or higher and the following imports:
+
+ - pygame : a nice game development library for Python
+ - random : for random stuff
+ - math : needed for math.dist
+ - pyglet : a timer that works (note: other high resolution timers cause jerky frame rates)
 
 The entire program is less than 200 lines of code. It is not the smallest game ever in terms of source code, but it is pretty small (by design).
 
