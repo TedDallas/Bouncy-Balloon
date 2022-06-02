@@ -3,6 +3,7 @@ REQUIREMENTS:
 Before running make sure you have PyGame and Pyglet installed first:
 
   pip3 install pygame
+  
   pip3 install pyglet
 
 ABOUT: 
