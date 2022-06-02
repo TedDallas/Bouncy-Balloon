@@ -1,11 +1,9 @@
 REQUIREMENTS: 
 -------------------------------------------------------------------------------
-Before running make sure you have PyGame installed first:
+Before running make sure you have PyGame and Pyglet installed first:
 
   pip3 install pygame
-
-You need to be on Python 3.7 or higher as I am using time.time_ns() which was introduced in Python version 3.7. PyGame's clock.tick() causes frame rate jerkyness, which is why I'm not using it.
-
+  pip3 install pyglet
 
 ABOUT: 
 -------------------------------------------------------------------------------
