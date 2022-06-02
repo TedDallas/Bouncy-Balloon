@@ -1,10 +1,8 @@
-import pygame, time, random, math
+import pygame, random, math, pyglet
 
 pygame.init() #initialize the game engine
 frame_counter = 0 #frame counter used for timing things
-#GameScreen = pygame.display.set_mode(size=(0, 0), flags=pygame.HWSURFACE|pygame.FULLSCREEN, vsync=1) # This works on Windows but not on Rasperian
-DisplayInfo = pygame.display.Info()
-GameScreen = pygame.display.set_mode(size=(DisplayInfo.current_w, DisplayInfo.current_h), flags=pygame.NOFRAME) # create the Game Screen to draw on
+GameScreen = pygame.display.set_mode(size=(0, 0), flags=pygame.HWSURFACE|pygame.FULLSCREEN, vsync=1) # This works on Windows but not on Rasperian
 screen_height = 1080#GameScreen.get_height()  #Max point for y-axis (min is always 0)
 screen_width = 1920#GameScreen.get_width() #Max point for x-axis (min is always 0)
 jump_energy = -int(1.0/30.0 * screen_height)#player maximum jump power (always a negative number because y-axis up direction is negative)
@@ -16,11 +14,12 @@ player_y_pos = player_y_spawn #current y-position of the player
 player_jump_speed = jump_energy #current player jump speed
 player_alive = True 
 player_restart_depth = 3 * screen_height #game restarts when player falls to this depth (player_y_pos)
-balloon_column_count = 50 #total number of random balloons per column
+balloon_column_count = 60 #total number of random balloons per column
 ballon_speed = int(-(1.0/150.0 * screen_width)) #fixed speed of balloons moving accross the screen to the left
 balloons = [] #balloons list container
 hole_height = int(2.0/5.0*screen_height)  #height of the hole in the balloons column that the player must fly through
 frame_rate = 60 #frame rate in frames per second
+frame_rate_per_second_fraction = 1.0 / frame_rate
 gravity = int(1.0 / frame_rate * screen_height / 6.0)
 pygame.font.init() #initialize font object
 score_font = pygame.font.Font(None, int(1.0/12.0 * screen_width)) #create font score object for displaying the player score
@@ -40,7 +39,9 @@ class Enemy:
 pygame.mouse.set_visible(False) #no one wants to see the mouse cursor
 
 while playing: # main game loop
-    start_time = time.time_ns() #capture frame start time, used for pegging frame rate which is less jumpy than clock.tick()
+    #start_time = time.time_ns() #capture frame start time, used for pegging frame rate which is less jumpy than clock.tick()
+    time = 0.0
+
     frame_counter += 1 #Increment frame counter
     GameScreen.fill([135,206,235]) #fill screen with sky blue color
 
@@ -148,9 +149,12 @@ while playing: # main game loop
     text_width, text_height = score_font.size(str(score)) #get the high score text size so we can center it
     GameScreen.blit(score_text, (screen_width/2-text_width/2, 10 + text_height)) #draw score text
      
-    pygame.display.flip() #update screen 
+    while True:
+        time += pyglet.clock.tick()
+        if time >= frame_rate_per_second_fraction:
+            break
 
-    time.sleep(max(0.0,1.0/60.0 - float(time.time_ns() - start_time)/1000000000.0)) #sleep for time remaining before 1/60th of one second has elapsed. Smooth got to be. 
+    pygame.display.flip() #update screen 
 
 pygame.mouse.set_visible(True)
 pygame.quit() #shut down
